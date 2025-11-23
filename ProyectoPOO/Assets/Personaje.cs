@@ -7,7 +7,7 @@ public class Personaje : Entidad
     private int nivel;
     private int experiencia;
     private int puntosDeHabilidad;
-    private Arma arma;
+    //private Arma arma;
     private Habilidad[] habilidades;
 
     public Rigidbody2D rigidbody2D;
