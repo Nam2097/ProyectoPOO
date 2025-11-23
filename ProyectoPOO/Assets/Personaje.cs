@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem; 
 
-public class Personaje : MonoBehaviour
+public class Personaje : Entidad
 {
+    private int stamina;
+    private int nivel;
+    private int experiencia;
+    private int puntosDeHabilidad;
+    private Arma arma;
+    private Habilidad[] habilidades;
+
     public Rigidbody2D rigidbody2D;
     public float velocidadHorizontal = 1f;
     public float fuerzaSalto = 4f;
@@ -12,7 +19,6 @@ public class Personaje : MonoBehaviour
     {
         
     }
-
     void Update()
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -36,4 +42,9 @@ public class Personaje : MonoBehaviour
             espacioPresionado = false;
         }
     }
+    public override void atacar()
+    {
+        
+    }
 }
+
