@@ -2,9 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem; 
 using System.Collections.Generic;
 
-public class Jugador : Entidad
+public class Personaje : Entidad
 {
-    //Atributos del UML
     private int stamina;
     private int nivel = 0;
     private int experiencia = 0;
@@ -15,7 +14,7 @@ public class Jugador : Entidad
     //private Arma armaActiva;
     private List<Habilidad> habilidades= new List<Habilidad>();
 
-    //Atributos para funcionamiento en unity
+
     public Rigidbody2D rigidbody2D;
     public float velocidadHorizontal = 1f;
      public float fuerzaSalto = 4f;
@@ -23,32 +22,42 @@ public class Jugador : Entidad
     public float velocidadMaxima = 2f;
     private bool exedioVelMax=false;
     private Vector2 velocidadActual;
-    public Transform controladorSuelo; 
-    public float radioSuelo = 0.2f;  
-    public LayerMask queEsSuelo;     
-    private bool enSuelo;
-
-    //Metodos del UML
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+    void Update()
+    {   
+        velocidadActual=rigidbody2D.linearVelocity;
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            espacioPresionado = true;
+        }
+        if (velocidadActual.x>2f||velocidadActual.x<-2f)
+        {
+            exedioVelMax=true;
+        }
+        else
+        {
+            exedioVelMax=false;
+        }
+    }
+    void FixedUpdate()
+    {
+        mover();
+    }
     public void mover()
     {
         if (Keyboard.current.dKey.isPressed && !exedioVelMax)
         {
-            rb.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
-        }
-        if (Keyboard.current.aKey.isPressed)
-        {
-            rb.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
-        }
-        if (espacioPresionado)
-        {
-            rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             rigidbody2D.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
         if (Keyboard.current.aKey.isPressed && !exedioVelMax)
         {
             rigidbody2D.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
-        if (espacioPresionado && enSuelo)
+        if (espacioPresionado && !exedioVelMax)
         {
             rigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             espacioPresionado = false;
@@ -98,43 +107,6 @@ public class Jugador : Entidad
         {
             this.monedas-=monedas;
             return 0;
-        }
-    }
-
-
-    //Metodos de Unity
-    void Start()
-    {
-        
-    }
-    void Update()
-    {   
-        velocidadActual=rigidbody2D.linearVelocity;
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            espacioPresionado = true;
-        }
-        if (velocidadActual.x>velocidadMaxima||velocidadActual.x<-velocidadMaxima)
-        {
-            exedioVelMax=true;
-        }
-        else
-        {
-            exedioVelMax=false;
-        }
-    }
-    void FixedUpdate()
-    {
-        enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo);
-        mover();
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (controladorSuelo != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(controladorSuelo.position, radioSuelo);
         }
     }
 
