@@ -16,7 +16,7 @@ public class Jugador : Entidad
     private List<Habilidad> habilidades= new List<Habilidad>();
 
     //Atributos para funcionamiento en unity
-    public Rigidbody2D rigidbody2D;
+    private Rigidbody2D rigidbody2D;
     public float velocidadHorizontal = 0.2f;
      public float fuerzaSalto = 5f;
     private bool espacioPresionado = false;
@@ -27,6 +27,59 @@ public class Jugador : Entidad
     public float radioSuelo = 0.2f;  
     public LayerMask queEsSuelo;     
     private bool enSuelo;
+    private Animator animacion;
+
+    //Metodos de Unity
+    void Start()
+    {
+        animacion = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+    }
+    void Update()
+    {   
+        //Verificaciones para movimiento
+        velocidadActual=rigidbody2D.linearVelocity;
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            espacioPresionado = true;
+        }
+        if (velocidadActual.x>velocidadMaxima||velocidadActual.x<-velocidadMaxima)
+        {
+            exedioVelMax=true;
+        }
+        else
+        {
+            exedioVelMax=false;
+        }
+
+        //Para animaciones
+        animacion.SetFloat("velocidad", Mathf.Abs(rigidbody2D.linearVelocity.x));
+        if (rigidbody2D.linearVelocity.x > 0.1f) 
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar derecha
+        }
+        else if (rigidbody2D.linearVelocity.x < -0.1f) 
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar izquierda
+        }
+        animacion.SetBool("enSuelo", enSuelo);
+    }
+    void FixedUpdate()
+    {   
+        //Movimiento en sí
+        enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo);
+        mover();
+    }
+
+    private void OnDrawGizmos()
+    {   
+        //Para dibujar el detector del piso
+        if (controladorSuelo != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(controladorSuelo.position, radioSuelo);
+        }
+    }
 
     //Metodos del UML
     public void mover()
@@ -38,6 +91,10 @@ public class Jugador : Entidad
         if (Keyboard.current.aKey.isPressed && !exedioVelMax)
         {
             rigidbody2D.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
+        }
+        if(espacioPresionado && !enSuelo)
+        {
+            espacioPresionado = false;
         }
         if (espacioPresionado && enSuelo)
         {
@@ -93,41 +150,6 @@ public class Jugador : Entidad
     }
 
 
-    //Metodos de Unity
-    void Start()
-    {
-        
-    }
-    void Update()
-    {   
-        velocidadActual=rigidbody2D.linearVelocity;
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            espacioPresionado = true;
-        }
-        if (velocidadActual.x>velocidadMaxima||velocidadActual.x<-velocidadMaxima)
-        {
-            exedioVelMax=true;
-        }
-        else
-        {
-            exedioVelMax=false;
-        }
-    }
-    void FixedUpdate()
-    {
-        enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo);
-        mover();
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (controladorSuelo != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(controladorSuelo.position, radioSuelo);
-        }
-    }
 
 }
 
