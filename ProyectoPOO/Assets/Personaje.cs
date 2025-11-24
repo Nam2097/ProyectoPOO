@@ -53,7 +53,7 @@ public class Jugador : Entidad
         }
 
         //Para animaciones
-        animacion.SetFloat("velocidad", Mathf.Abs(rigidbody2D.linearVelocity.x));
+        animacion.SetFloat("velocidadX", Mathf.Abs(rigidbody2D.linearVelocity.x));
         if (rigidbody2D.linearVelocity.x > 0.1f) 
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar derecha
@@ -62,7 +62,8 @@ public class Jugador : Entidad
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar izquierda
         }
-        animacion.SetBool("enSuelo", enSuelo);
+        animacion.SetFloat("velocidadY", rigidbody2D.linearVelocity.y);
+        animacion.SetBool("enSuelo",enSuelo);
     }
     void FixedUpdate()
     {   
