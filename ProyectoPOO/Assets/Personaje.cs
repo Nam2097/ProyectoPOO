@@ -46,5 +46,9 @@ public class Personaje : Entidad
     {
         
     }
+    public override void morir()
+    {
+        
+    }
 }
 
