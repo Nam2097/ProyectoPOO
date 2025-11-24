@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &168520963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168520964}
+  m_Layer: 0
+  m_Name: Pies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &168520964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168520963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.07, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 553776453}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &201183752
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,7 +436,8 @@ GameObject:
   - component: {fileID: 553776452}
   - component: {fileID: 553776456}
   - component: {fileID: 553776455}
-  - component: {fileID: 553776454}
+  - component: {fileID: 553776457}
+  - component: {fileID: 553776458}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Untagged
@@ -481,27 +513,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.0571, y: 1.3063, z: 0}
-  m_LocalScale: {x: 4.2376776, y: 4.2379875, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 168520964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &553776454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 553776451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a77c5ca81a9f24b83260bdb2155e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  rigidbody2D: {fileID: 553776455}
-  velocidadHorizontal: 0.2
-  fuerzaSalto: 7
-  velocidadMaxima: 2
 --- !u!50 &553776455
 Rigidbody2D:
   serializedVersion: 5
@@ -575,6 +592,48 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.13, y: 0.16}
   m_EdgeRadius: 0
+--- !u!95 &553776457
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553776451}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 283299c249c90cb42ba53e106b8b34d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &553776458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553776451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e093b5f66878a9d49b97b139d10d1acd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Jugador
+  velocidadHorizontal: 0.2
+  fuerzaSalto: 5
+  velocidadMaxima: 2
+  controladorSuelo: {fileID: 168520964}
+  radioSuelo: 0.17
+  queEsSuelo:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +866,7 @@ GameObject:
   - component: {fileID: 1963976878}
   - component: {fileID: 1963976877}
   - component: {fileID: 1963976879}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Suelo
   m_Icon: {fileID: 0}
