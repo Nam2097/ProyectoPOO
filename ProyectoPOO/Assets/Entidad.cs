@@ -5,6 +5,7 @@ public abstract class Entidad : MonoBehaviour
     protected int vidaMaxima;
     protected int vidaActual;
     protected int daño;
+    protected bool estaVivo=true;
 
     public int getVidaMaxima()
     {
