@@ -17,8 +17,8 @@ public class Jugador : Entidad
 
     //Atributos para funcionamiento en unity
     public Rigidbody2D rigidbody2D;
-    public float velocidadHorizontal = 1f;
-     public float fuerzaSalto = 4f;
+    public float velocidadHorizontal = 0.2f;
+     public float fuerzaSalto = 5f;
     private bool espacioPresionado = false;
     public float velocidadMaxima = 2f;
     private bool exedioVelMax=false;
