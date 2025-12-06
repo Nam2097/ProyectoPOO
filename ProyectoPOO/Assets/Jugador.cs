@@ -20,9 +20,12 @@ public class Jugador : Entidad
     public float velocidadHorizontal = 0.2f;
      public float fuerzaSalto = 5f;
     private bool espacioPresionado = false;
+    private int contadorSalto = 0;
     public float velocidadMaxima = 2f;
-    private bool exedioVelMax=false;
+    private bool exedioVelMaxPositivo=false;
+    private bool exedioVelMaxNegativo=false;
     private Vector2 velocidadActual;
+
     public Transform controladorSuelo; 
     public float radioSuelo = 0.2f;  
     public LayerMask queEsSuelo;     
@@ -34,6 +37,7 @@ public class Jugador : Entidad
     {
         animacion = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        habilidades.Add(Habilidad.DOBLESALTO);
     }
     void Update()
     {   
@@ -43,15 +47,26 @@ public class Jugador : Entidad
         {
             espacioPresionado = true;
         }
-        if (velocidadActual.x>velocidadMaxima||velocidadActual.x<-velocidadMaxima)
+        if (velocidadActual.x<-velocidadMaxima)
         {
-            exedioVelMax=true;
+            exedioVelMaxNegativo=true;
         }
         else
         {
-            exedioVelMax=false;
+            exedioVelMaxNegativo=false;
         }
-
+        if (velocidadActual.x>velocidadMaxima)
+        {
+            exedioVelMaxPositivo=true;
+        }
+        else
+        {
+            exedioVelMaxPositivo=false;
+        }
+        if(enSuelo && habilidades.Contains(Habilidad.DOBLESALTO))
+        {
+            contadorSalto =1;
+        }
         //Para animaciones
         animacion.SetFloat("velocidadX", Mathf.Abs(rigidbody2D.linearVelocity.x));
         if (rigidbody2D.linearVelocity.x > 0.1f) 
@@ -85,22 +100,32 @@ public class Jugador : Entidad
     //----------------------------------------------------------Metodos del UML----------------------------------------------------------
     public void mover()
     {
-        if (Keyboard.current.dKey.isPressed && !exedioVelMax)
+        if (Keyboard.current.dKey.isPressed && !exedioVelMaxPositivo)
         {
             rigidbody2D.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
-        if (Keyboard.current.aKey.isPressed && !exedioVelMax)
+        if (Keyboard.current.aKey.isPressed && !exedioVelMaxNegativo)
         {
             rigidbody2D.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
-        if(espacioPresionado && !enSuelo)
-        {
+        if(espacioPresionado && !enSuelo && contadorSalto<=0)
+        {   
             espacioPresionado = false;
+        } else if (espacioPresionado && !enSuelo && contadorSalto>=1)
+        {
+            if (contadorSalto >= 1)
+            {
+                contadorSalto--;
+            }
+            espacioPresionado = false;
+            rigidbody2D.linearVelocity = new Vector2(rigidbody2D.linearVelocity.x, 0f);
+            rigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
         }
         if (espacioPresionado && enSuelo)
         {
             rigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             espacioPresionado = false;
+            
         }
 
     }
