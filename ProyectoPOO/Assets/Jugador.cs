@@ -192,6 +192,10 @@ public class Jugador : Entidad
                 hitboxCollider.enabled = false;
             
     }
+    public override void morir()
+    {
+        
+    }
     public void añadirHabilidad(Habilidad habilidad)
     {
         habilidades.Add(habilidad);
@@ -233,7 +237,6 @@ public class Jugador : Entidad
             return 0;
         }
     }
-
 
 
 }
