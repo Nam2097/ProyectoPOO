@@ -79,7 +79,7 @@ public class Jugador : Entidad
         {
             if (habilidades.Contains(Habilidad.CARGARATAQUE))
             {
-
+                
             }
             else
             {
@@ -148,6 +148,10 @@ public class Jugador : Entidad
             hitboxCollider.enabled = false;
         }
     }
+    public void cargarAtaque()
+    {
+        
+    }
     //-------------------------------------------------------------------Metodos del UML---------------------------------------------------------------------
     public void mover()
     {
@@ -185,7 +189,6 @@ public class Jugador : Entidad
     }
     public override void atacar()
     {
-        
                 rigidbody2D.linearVelocity = new Vector2(0f, 0f);
                 animacion.SetTrigger("Ataque");
                 hitboxCollider.enabled = true;
