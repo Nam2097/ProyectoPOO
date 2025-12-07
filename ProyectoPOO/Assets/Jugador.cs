@@ -239,5 +239,6 @@ public class Jugador : Entidad
     }
 
 
+
 }
 
