@@ -8,6 +8,10 @@ public class Personaje : Entidad
     private int experiencia;
     private int puntosDeHabilidad;
     //private Arma arma;
+    // private Habilidad[] habilidades;
+
+
+    public Rigidbody2D rb;
     private Habilidad[] habilidades;
 
     public Rigidbody2D rigidbody2D;
@@ -30,6 +34,15 @@ public class Personaje : Entidad
     {
         if (Keyboard.current.dKey.isPressed)
         {
+            rb.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
+        }
+        if (Keyboard.current.aKey.isPressed)
+        {
+            rb.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
+        }
+        if (espacioPresionado)
+        {
+            rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             rigidbody2D.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
         if (Keyboard.current.aKey.isPressed)
