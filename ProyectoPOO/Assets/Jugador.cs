@@ -16,6 +16,7 @@ public class Jugador : Entidad
     private List<Habilidad> habilidades= new List<Habilidad>();
 
     //----------------------------------------------------------Atributos para funcionamiento en unity----------------------------------------------------------
+    //Movimiento
     private Rigidbody2D rigidbody2D;
     public float velocidadHorizontal = 0.2f;
      public float fuerzaSalto = 5f;
@@ -25,29 +26,35 @@ public class Jugador : Entidad
     private bool exedioVelMaxPositivo=false;
     private bool exedioVelMaxNegativo=false;
     private Vector2 velocidadActual;
-
+    //Detector del suelo
     public Transform controladorSuelo; 
     public float radioSuelo = 0.2f;  
     public LayerMask queEsSuelo;     
     private bool enSuelo;
     private Animator animacion;
+    //Para el ataque
+    public bool atacando = false;
+    public Collider2D hitboxCollider;
+    //Para animaciones
+    private AnimatorStateInfo animacionActual;
 
-    //----------------------------------------------------------Metodos de Unity----------------------------------------------------------
+    //-----------------------------------------------------------------Metodos de Unity----------------------------------------------------------
     void Start()
     {
         animacion = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         habilidades.Add(Habilidad.DOBLESALTO);
+        hitboxCollider.enabled = false;
     }
     void Update()
     {   
         //Verificaciones para movimiento
-        velocidadActual=rigidbody2D.linearVelocity;
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        velocidadActual=rigidbody2D.linearVelocity; //obtener vector de velocidad
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !animacionActual.IsName("Atacar")) //espacio presionado o no pa saltar
         {
             espacioPresionado = true;
         }
-        if (velocidadActual.x<-velocidadMaxima)
+        if (velocidadActual.x<-velocidadMaxima) //verificacion velocidad maxima hacia la izquierda
         {
             exedioVelMaxNegativo=true;
         }
@@ -55,7 +62,7 @@ public class Jugador : Entidad
         {
             exedioVelMaxNegativo=false;
         }
-        if (velocidadActual.x>velocidadMaxima)
+        if (velocidadActual.x>velocidadMaxima) //verificacion velocidad maxima hacia la derecha
         {
             exedioVelMaxPositivo=true;
         }
@@ -63,12 +70,34 @@ public class Jugador : Entidad
         {
             exedioVelMaxPositivo=false;
         }
-        if(enSuelo && habilidades.Contains(Habilidad.DOBLESALTO))
+        if(enSuelo && habilidades.Contains(Habilidad.DOBLESALTO)) //verificación de doble salto
         {
             contadorSalto =1;
         }
+        //Ataque
+        if(enSuelo && Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            if (habilidades.Contains(Habilidad.CARGARATAQUE))
+            {
+
+            }
+            else
+            {
+                atacar();
+            }
+            
+        }
+        if(enSuelo && Keyboard.current.fKey.wasReleasedThisFrame)
+        {
+            
+        }
+        
         //Para animaciones
+        animacionActual = animacion.GetCurrentAnimatorStateInfo(0);
         animacion.SetFloat("velocidadX", Mathf.Abs(rigidbody2D.linearVelocity.x));
+        animacion.SetFloat("velocidadY", rigidbody2D.linearVelocity.y);
+        animacion.SetBool("enSuelo",enSuelo);
+
         if (rigidbody2D.linearVelocity.x > 0.1f) 
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar derecha
@@ -77,13 +106,20 @@ public class Jugador : Entidad
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar izquierda
         }
-        animacion.SetFloat("velocidadY", rigidbody2D.linearVelocity.y);
-        animacion.SetBool("enSuelo",enSuelo);
+        if (atacando)
+        {
+            activarHitbox();
+        }
+        if (!atacando)
+        {
+            desactivarHitbox();
+        }
+        
     }
     void FixedUpdate()
     {   
         //Movimiento en sí
-        enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo);
+        enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo); //Revisión si está en el suelo
         mover();
     }
 
@@ -96,22 +132,41 @@ public class Jugador : Entidad
             Gizmos.DrawWireSphere(controladorSuelo.position, radioSuelo);
         }
     }
+    //para activar y desactivar la hitbox de daño
+        public void activarHitbox()
+    {
+        if (hitboxCollider != null)
+        {
+            hitboxCollider.enabled = true;
+        }
+    }
 
-    //----------------------------------------------------------Metodos del UML----------------------------------------------------------
+    public void desactivarHitbox()
+    {
+        if (hitboxCollider != null)
+        {
+            hitboxCollider.enabled = false;
+        }
+    }
+    //-------------------------------------------------------------------Metodos del UML---------------------------------------------------------------------
     public void mover()
     {
-        if (Keyboard.current.dKey.isPressed && !exedioVelMaxPositivo)
+        //para moverse a la izquierda o a la derecha
+
+        if (Keyboard.current.dKey.isPressed && !exedioVelMaxPositivo && !animacionActual.IsName("Atacar"))
         {
             rigidbody2D.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
-        if (Keyboard.current.aKey.isPressed && !exedioVelMaxNegativo)
+        if (Keyboard.current.aKey.isPressed && !exedioVelMaxNegativo && !animacionActual.IsName("Atacar"))
         {
             rigidbody2D.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
+
+        //para saltar
         if(espacioPresionado && !enSuelo && contadorSalto<=0)
         {   
             espacioPresionado = false;
-        } else if (espacioPresionado && !enSuelo && contadorSalto>=1)
+        } else if (espacioPresionado && !enSuelo && contadorSalto>=1) //doble salto
         {
             if (contadorSalto >= 1)
             {
@@ -121,17 +176,21 @@ public class Jugador : Entidad
             rigidbody2D.linearVelocity = new Vector2(rigidbody2D.linearVelocity.x, 0f);
             rigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
         }
-        if (espacioPresionado && enSuelo)
+        if (espacioPresionado && enSuelo) //salto normal
         {
             rigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
             espacioPresionado = false;
-            
         }
 
     }
     public override void atacar()
     {
         
+                rigidbody2D.linearVelocity = new Vector2(0f, 0f);
+                animacion.SetTrigger("Ataque");
+                hitboxCollider.enabled = true;
+                hitboxCollider.enabled = false;
+            
     }
     public void añadirHabilidad(Habilidad habilidad)
     {
