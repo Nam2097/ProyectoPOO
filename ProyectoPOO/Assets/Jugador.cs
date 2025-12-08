@@ -26,31 +26,50 @@ public class Jugador : Entidad
     private bool exedioVelMaxPositivo=false;
     private bool exedioVelMaxNegativo=false;
     private Vector2 velocidadActual;
+
     //Detector del suelo
     public Transform controladorSuelo; 
     public float radioSuelo = 0.2f;  
     public LayerMask queEsSuelo;     
     private bool enSuelo;
-    private Animator animacion;
+    
     //Para el ataque
     public bool atacando = false;
     public Collider2D hitboxCollider;
+    private int buffPorSegundo =10;
+    private float temporizadorAtaque = 0f;
+    public float tiempoMaxCargado = 2f;
+    private bool puedeAtacar = true;
+    private bool cargandoAtaque=false;
+
     //Para animaciones
     private AnimatorStateInfo animacionActual;
+    private Animator animacion;
+    
 
     //-----------------------------------------------------------------Metodos de Unity----------------------------------------------------------
     void Start()
     {
         animacion = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
-        habilidades.Add(Habilidad.DOBLESALTO);
+        
         hitboxCollider.enabled = false;
+
+        //Pruebas propias
+        habilidades.Add(Habilidad.DOBLESALTO);
+        habilidades.Add(Habilidad.CARGARATAQUE);
+    }
+    void Awake()
+    {
+        vidaMaxima=100;
+        vidaActual=100;
+        daño=20;
     }
     void Update()
     {   
         //Verificaciones para movimiento
         velocidadActual=rigidbody2D.linearVelocity; //obtener vector de velocidad
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && !animacionActual.IsName("Atacar")) //espacio presionado o no pa saltar
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !animacionActual.IsName("Atacar") && !cargandoAtaque) //espacio presionado o no pa saltar
         {
             espacioPresionado = true;
         }
@@ -75,36 +94,36 @@ public class Jugador : Entidad
             contadorSalto =1;
         }
         //Ataque
-        if(enSuelo && Keyboard.current.fKey.wasPressedThisFrame)
+        if(enSuelo && Keyboard.current.fKey.wasPressedThisFrame && puedeAtacar)
         {
-            if (habilidades.Contains(Habilidad.CARGARATAQUE))
+            if (!habilidades.Contains(Habilidad.CARGARATAQUE))
             {
-                
+                atacar();
             }
             else
             {
-                atacar();
+                cargandoAtaque = true;
+                temporizadorAtaque = 0f;
+                rigidbody2D.linearVelocity = new Vector2(0f, 0f);
+                cargarAtaque();
+            }
+            
+        }
+        if(enSuelo && Keyboard.current.fKey.isPressed && puedeAtacar)
+        {
+            if (habilidades.Contains(Habilidad.CARGARATAQUE))
+            {
+                cargarAtaque();
             }
             
         }
         if(enSuelo && Keyboard.current.fKey.wasReleasedThisFrame)
         {
             
-        }
-        
-        //Para animaciones
-        animacionActual = animacion.GetCurrentAnimatorStateInfo(0);
-        animacion.SetFloat("velocidadX", Mathf.Abs(rigidbody2D.linearVelocity.x));
-        animacion.SetFloat("velocidadY", rigidbody2D.linearVelocity.y);
-        animacion.SetBool("enSuelo",enSuelo);
-
-        if (rigidbody2D.linearVelocity.x > 0.1f) 
-        {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar derecha
-        }
-        else if (rigidbody2D.linearVelocity.x < -0.1f) 
-        {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar izquierda
+            if (habilidades.Contains(Habilidad.CARGARATAQUE) && temporizadorAtaque!=0f)
+            {
+                atacar();
+            }
         }
         if (atacando)
         {
@@ -114,6 +133,23 @@ public class Jugador : Entidad
         {
             desactivarHitbox();
         }
+        
+        //Para animaciones
+        animacionActual = animacion.GetCurrentAnimatorStateInfo(0);
+        animacion.SetFloat("velocidadX", Mathf.Abs(rigidbody2D.linearVelocity.x));
+        animacion.SetFloat("velocidadY", rigidbody2D.linearVelocity.y);
+        animacion.SetBool("enSuelo",enSuelo);
+        animacion.SetBool("cargarAtaque",cargandoAtaque);
+
+        if (rigidbody2D.linearVelocity.x > 0.1f) 
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar derecha
+        }
+        else if (rigidbody2D.linearVelocity.x < -0.1f) 
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z); // mirar izquierda
+        }
+        
         
     }
     void FixedUpdate()
@@ -150,18 +186,25 @@ public class Jugador : Entidad
     }
     public void cargarAtaque()
     {
-        
+        cargandoAtaque=true;
+        temporizadorAtaque += Time.deltaTime;
+        if (temporizadorAtaque > tiempoMaxCargado)
+        {
+            puedeAtacar=false;
+            atacar();
+        }
     }
+    
     //-------------------------------------------------------------------Metodos del UML---------------------------------------------------------------------
     public void mover()
     {
         //para moverse a la izquierda o a la derecha
 
-        if (Keyboard.current.dKey.isPressed && !exedioVelMaxPositivo && !animacionActual.IsName("Atacar"))
+        if (Keyboard.current.dKey.isPressed && !exedioVelMaxPositivo && !animacionActual.IsName("Atacar") && !cargandoAtaque)
         {
             rigidbody2D.AddForce(new Vector2(velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
-        if (Keyboard.current.aKey.isPressed && !exedioVelMaxNegativo && !animacionActual.IsName("Atacar"))
+        if (Keyboard.current.aKey.isPressed && !exedioVelMaxNegativo && !animacionActual.IsName("Atacar") && !cargandoAtaque)
         {
             rigidbody2D.AddForce(new Vector2(-velocidadHorizontal, 0f), ForceMode2D.Impulse);
         }
@@ -189,10 +232,20 @@ public class Jugador : Entidad
     }
     public override void atacar()
     {
-                rigidbody2D.linearVelocity = new Vector2(0f, 0f);
-                animacion.SetTrigger("Ataque");
-                hitboxCollider.enabled = true;
-                hitboxCollider.enabled = false;
+        if (habilidades.Contains(Habilidad.CARGARATAQUE))
+        {
+            cargandoAtaque=false;
+            rigidbody2D.linearVelocity = new Vector2(0f, 0f);
+            int dañoTemporal = daño;
+            daño += (int)temporizadorAtaque*buffPorSegundo;
+            puedeAtacar=true;
+        }
+        else
+        {
+            rigidbody2D.linearVelocity = new Vector2(0f, 0f);
+            animacion.SetTrigger("Ataque");
+        }
+        
             
     }
     public override void morir()
