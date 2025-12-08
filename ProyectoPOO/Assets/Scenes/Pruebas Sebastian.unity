@@ -631,12 +631,13 @@ MonoBehaviour:
   fuerzaSalto: 5
   velocidadMaxima: 2
   controladorSuelo: {fileID: 168520964}
-  radioSuelo: 0.17
+  radioSuelo: 0.2
   queEsSuelo:
     serializedVersion: 2
     m_Bits: 64
   atacando: 0
   hitboxCollider: {fileID: 1822989474}
+  tiempoMaxCargado: 2
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
