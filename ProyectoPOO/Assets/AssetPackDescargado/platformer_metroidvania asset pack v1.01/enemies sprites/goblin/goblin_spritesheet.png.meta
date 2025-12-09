@@ -148,16 +148,16 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblin_spritesheet_0
+      name: dcaminar1
       rect:
         serializedVersion: 2
         x: 1
-        y: 48
+        y: 64
         width: 15
-        height: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 16, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -170,7 +170,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_1
+      name: dcaminar2
       rect:
         serializedVersion: 2
         x: 17
@@ -178,7 +178,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -192,16 +192,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_2
+      name: dmuerte2
       rect:
         serializedVersion: 2
         x: 17
-        y: 54
+        y: 49
         width: 13
-        height: 11
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -214,16 +214,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_3
+      name: dcaminar3
       rect:
         serializedVersion: 2
         x: 34
-        y: 63
+        y: 64
         width: 14
-        height: 17
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -236,16 +236,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_4
+      name: dmuerte3
       rect:
         serializedVersion: 2
         x: 34
-        y: 54
+        y: 49
         width: 11
-        height: 9
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 1, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -258,15 +258,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_5
+      name: dcaminar4
       rect:
         serializedVersion: 2
         x: 50
-        y: 53
-        width: 19
-        height: 27
+        y: 64
+        width: 14
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -280,16 +280,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_6
+      name: dcaminar5
       rect:
         serializedVersion: 2
         x: 65
-        y: 60
+        y: 64
         width: 15
-        height: 20
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 4, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -302,15 +302,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_7
+      name: dcaminar6
       rect:
         serializedVersion: 2
-        x: 74
-        y: 53
-        width: 22
-        height: 27
+        x: 81
+        y: 64
+        width: 15
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -324,16 +324,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_8
+      name: didle1
       rect:
         serializedVersion: 2
         x: 1
-        y: 0
+        y: 16
         width: 15
-        height: 32
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 16, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -346,16 +346,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_9
+      name: dmuerte1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 31
+        x: 1
+        y: 49
         width: 14
-        height: 17
+        height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 2, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -368,16 +368,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_10
+      name: didle2
       rect:
         serializedVersion: 2
         x: 17
-        y: 0
+        y: 16
         width: 15
-        height: 33
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 16, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -390,15 +390,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_11
+      name: dataque2
       rect:
         serializedVersion: 2
         x: 27
-        y: 31
+        y: 32
         width: 18
-        height: 17
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -412,15 +412,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_12
+      name: didle3
       rect:
         serializedVersion: 2
         x: 33
-        y: 15
+        y: 16
         width: 14
-        height: 17
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -434,15 +434,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_13
+      name: didle4
       rect:
         serializedVersion: 2
         x: 49
-        y: 15
+        y: 16
         width: 14
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -456,15 +456,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_14
+      name: dataque3
       rect:
         serializedVersion: 2
         x: 50
-        y: 31
+        y: 32
         width: 22
-        height: 17
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -478,7 +478,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_15
+      name: dataque4
       rect:
         serializedVersion: 2
         x: 73
@@ -486,7 +486,7 @@ TextureImporter:
         width: 22
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -500,7 +500,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_16
+      name: "dda\xF1o3"
       rect:
         serializedVersion: 2
         x: 32
@@ -508,7 +508,7 @@ TextureImporter:
         width: 15
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -521,11 +521,143 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: dmuerte4
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 49
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e30609902914337409a7de0039e95ccd
+      internalID: -1287142473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dmuerte5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 49
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1932901ec4fbdaa42a1b656c78476e27
+      internalID: 1145384308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dmuerte6
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 49
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a887e36923cc2b048a91cc1a3e18f010
+      internalID: -1725250021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dataque1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 32
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe49f2e27cb3c44cba7aaea9cfb72d9
+      internalID: 886451608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "dda\xF1o1"
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32318b4903b432a479ae8ebc9b4b361b
+      internalID: -655625259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "dda\xF1o2"
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db163faae7c0d68478df14c88545936d
+      internalID: 293110100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9f14a74721f643f4b92e622a6660dcb4
     internalID: 0
     vertices: []
     indices: 
@@ -535,23 +667,29 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      goblin_spritesheet_0: 685267539325443055
-      goblin_spritesheet_1: 1389895093345447926
-      goblin_spritesheet_10: -7691990320725225722
-      goblin_spritesheet_11: -6932334397416635257
-      goblin_spritesheet_12: -7797427971559797800
-      goblin_spritesheet_13: -7626393077474405584
-      goblin_spritesheet_14: -3391707435513064751
-      goblin_spritesheet_15: 8748727094010827178
-      goblin_spritesheet_16: -3391699629897029785
-      goblin_spritesheet_2: 6241837322878474811
-      goblin_spritesheet_3: 1552869151895934863
-      goblin_spritesheet_4: -4993338339827292023
-      goblin_spritesheet_5: -6654304060574600212
-      goblin_spritesheet_6: 6126467551051091254
-      goblin_spritesheet_7: -576407222678904361
-      goblin_spritesheet_8: 1954245441328434962
-      goblin_spritesheet_9: -2517039487888108646
+      dataque1: 886451608
+      dataque2: -6932334397416635257
+      dataque3: -3391707435513064751
+      dataque4: 8748727094010827178
+      dcaminar1: 685267539325443055
+      dcaminar2: 1389895093345447926
+      dcaminar3: 1552869151895934863
+      dcaminar4: -6654304060574600212
+      dcaminar5: 6126467551051091254
+      dcaminar6: -576407222678904361
+      "dda\xF1o1": -655625259
+      "dda\xF1o2": 293110100
+      "dda\xF1o3": -3391699629897029785
+      didle1: 1954245441328434962
+      didle2: -7691990320725225722
+      didle3: -7797427971559797800
+      didle4: -7626393077474405584
+      dmuerte1: -2517039487888108646
+      dmuerte2: 6241837322878474811
+      dmuerte3: -4993338339827292023
+      dmuerte4: -1287142473
+      dmuerte5: 1145384308
+      dmuerte6: -1725250021
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
