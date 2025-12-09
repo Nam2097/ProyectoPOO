@@ -11,15 +11,15 @@ public class Jugador : Entidad
     private int puntosDeHabilidad = 0;
     private int monedas = 0;
     private List<string> llaves = new List<string>();
-    //private List<Arma> armasInventario =new List<Arma>();
-    //private Arma armaActiva;
+    private List<Arma> armasInventario =new List<Arma>();
+    private Arma armaActiva;
     private List<Habilidad> habilidades= new List<Habilidad>();
 
     //----------------------------------------------------------Atributos para funcionamiento en unity----------------------------------------------------------
     //Movimiento
     private Rigidbody2D rigidbody2D;
     public float velocidadHorizontal = 0.2f;
-     public float fuerzaSalto = 5f;
+     public float fuerzaSalto = 6.7f;
     private bool espacioPresionado = false;
     private int contadorSalto = 0;
     public float velocidadMaxima = 2f;
@@ -257,14 +257,21 @@ public class Jugador : Entidad
     {
         habilidades.Add(habilidad);
     }
-    /*public void añadirArmaInventario(Arma arma)
+    public void añadirArmaInventario(Arma arma)
     {
-        armasInventario.add(arma);
-    }*/
-    /*public void cambiarArmaActiva(Arma arma)
+        armasInventario.Add(arma);
+    }
+    public void cambiarArmaActiva(string arma)
     {
-        armaActiva = arma;
-    }*/
+        Arma armaBuscada =armasInventario.Find(armita => armita.GetNombre() == arma);
+        if (armaBuscada != null)
+        {
+            armaActiva = armaBuscada;
+            Debug.Log("Arma activa ahora es "+armaActiva.GetNombre());
+        }
+        Debug.Log("El jugador no tiene el arma");
+        
+    }
     public void aumentarExperiencia(int experiencia)
     {
         if (this.experiencia + experiencia >= 100)
@@ -281,6 +288,8 @@ public class Jugador : Entidad
     public void añadirMonedas(int monedas)
     {
         this.monedas+=monedas;
+        Debug.Log("Se añadieron "+monedas+" monedas ");
+        Debug.Log("Se tiene en total "+this.monedas+" monedas");
     }
     public int quitarMonedas(int monedas)
     {
