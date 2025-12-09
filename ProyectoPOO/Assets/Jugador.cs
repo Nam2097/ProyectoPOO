@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem; 
 using System.Collections.Generic;
 using System;
+using TMPro;
 
 public class Jugador : Entidad
 {
@@ -47,6 +48,11 @@ public class Jugador : Entidad
     //Para animaciones
     private AnimatorStateInfo animacionActual;
     private Animator animacion;
+    //Para UI
+    public BarraDeVida barraDeVidaScript;
+    public BarraExperiencia barraDeExperienciaScript;
+    public TMP_Text textoContadorMonedas;
+    public TMP_Text textoNivel;
     
 
     //-----------------------------------------------------------------Metodos de Unity----------------------------------------------------------
@@ -56,6 +62,23 @@ public class Jugador : Entidad
         rigidbody2D = GetComponent<Rigidbody2D>();
         
         hitboxCollider.enabled = false;
+
+        if (barraDeVidaScript != null)
+        {
+            barraDeVidaScript.InicializarBarra(vidaMaxima);
+        }
+        if (barraDeExperienciaScript != null)
+        {
+            barraDeExperienciaScript.CambiarExperienciaActual(experiencia);
+        }
+        if (textoContadorMonedas != null)
+        {
+            textoContadorMonedas.text =  monedas.ToString();
+        }
+        if (textoNivel != null)
+        {
+            textoNivel.text =  nivel.ToString();
+        }
 
         //Pruebas propias
         habilidades.Add(Habilidad.DOBLESALTO);
@@ -257,6 +280,14 @@ public class Jugador : Entidad
     {
         
     }
+    public void recibirDaño(int daño)
+    {
+        vidaActual -= daño;
+        if (barraDeVidaScript != null)
+        {
+            barraDeVidaScript.CambiarVidaActual(vidaActual,vidaMaxima);
+        }
+    }
     public void añadirHabilidad(Habilidad habilidad)
     {
         habilidades.Add(habilidad);
@@ -303,11 +334,19 @@ public class Jugador : Entidad
             nivel++;
             this.experiencia = this.experiencia + experiencia -100;
             Debug.Log("Se aumento el nivel a "+nivel);
+            if (textoNivel != null)
+            {
+                textoNivel.text =  nivel.ToString();
+            }
         }
         else
         {
            this.experiencia+= experiencia; 
            Debug.Log("Se aumento la experiencia por "+experiencia);
+        }
+        if (barraDeExperienciaScript != null)
+        {
+            barraDeExperienciaScript.CambiarExperienciaActual(this.experiencia);
         }
         
     }
@@ -316,6 +355,10 @@ public class Jugador : Entidad
         this.monedas+=monedas;
         Debug.Log("Se añadieron "+monedas+" monedas ");
         Debug.Log("Se tiene en total "+this.monedas+" monedas");
+        if (textoContadorMonedas != null)
+        {
+            textoContadorMonedas.text =  this.monedas.ToString();
+        }
     }
     public int quitarMonedas(int monedas)
     {
