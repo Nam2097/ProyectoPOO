@@ -67,6 +67,7 @@ public class Jugador : Entidad
     }
     void Update()
     {   
+        
         //Verificaciones para movimiento
         velocidadActual=rigidbody2D.linearVelocity; //obtener vector de velocidad
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !animacionActual.IsName("Atacar") && !cargandoAtaque) //espacio presionado o no pa saltar
