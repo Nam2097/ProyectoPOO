@@ -104,59 +104,6 @@ public class Fly : Enemigo
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero; 
         estadoActual = Estado.PERSIGUIENDO;
     }
-    private void ComportamientoPerseguir()
-    {
-        float distancia = Vector2.Distance(transform.position, objetivoActual.position);
-
-        if (distancia > rangoAtaque)
-        {
-            // Usamos nuestra propia lógica de vuelo, no la del padre (que es solo X)
-            movimientoAJugador();
-        }
-        else
-        {
-            // Entramos en rango, frenamos y nos preparamos
-            estadoActual = Estado.PREPARANDO;
-            temporizador = tiempoPreparacion;
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero; 
-        }
-    }
-    private void ComportamientoPreparar()
-    {
-        temporizador -= Time.deltaTime;
-
-
-        if (temporizador <= 0)
-        {
-            atacar();
-            estadoActual = Estado.RETIRADA;
-            temporizador = tiempoRetirada;
-        }
-    }
-    private void ComportamientoRetirada()
-    {
-        Vector2 direccionHuida = (transform.position - objetivoActual.position).normalized;
-        GetComponent<Rigidbody2D>().linearVelocity = direccionHuida * (velocidad * 1.5f);
-
-
-        temporizador -= Time.deltaTime;
-
-        if (temporizador <= 0)
-        {
-            estadoActual = Estado.COOLDOWN;
-            temporizador = cooldownAtaque;
-            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        }
-    }
-    private void ComportamientoCooldown()
-    {
-        temporizador -= Time.deltaTime;
-
-        if (temporizador <= 0)
-        {
-            estadoActual = Estado.PERSIGUIENDO;
-        }
-    }
     //----------------------------------------------------------Metodos del UML----------------------------------------------------------
     public override void morir()
     {
@@ -174,7 +121,60 @@ public class Fly : Enemigo
 
         GetComponent<Rigidbody2D>().linearVelocity = direccion * velocidad;
 
-        if (direccion.x > 0) spriteRenderer.flipX = false; //mirar a la derecha
-        else if (direccion.x < 0) spriteRenderer.flipX = true; //mirar a la izquierda
+        if (direccion.x > 0) spriteRenderer.flipX = true; //mirar a la derecha
+        else if (direccion.x < 0) spriteRenderer.flipX = false; //mirar a la izquierda
+    }
+    
+    public override void ComportamientoPerseguir()
+    {
+        float distancia = Vector2.Distance(transform.position, objetivoActual.position);
+
+        if (distancia > rangoAtaque) //aun no está a rango de ataque
+        {
+            // usamos nuestro propio movimiento, no la del padre pq solo es en x
+            movimientoAJugador();
+        }
+        else //está a rango de ataque
+        {
+            estadoActual = Estado.PREPARANDO;
+            temporizador = tiempoPreparacion;
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero; 
+        }
+    }
+    public override void ComportamientoPreparar()
+    {
+        temporizador -= Time.deltaTime;
+
+
+        if (temporizador <= 0)
+        {
+            atacar();
+            estadoActual = Estado.RETIRADA;
+            temporizador = tiempoRetirada;
+        }
+    }
+    public override void ComportamientoRetirada()
+    {
+        Vector2 direccionHuida = (transform.position - objetivoActual.position).normalized;
+        GetComponent<Rigidbody2D>().linearVelocity = direccionHuida * (velocidad * 1.5f);
+
+
+        temporizador -= Time.deltaTime;
+
+        if (temporizador <= 0)
+        {
+            estadoActual = Estado.COOLDOWN;
+            temporizador = cooldownAtaque;
+            GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        }
+    }
+    public override void ComportamientoCooldown()
+    {
+        temporizador -= Time.deltaTime;
+
+        if (temporizador <= 0)
+        {
+            estadoActual = Estado.PERSIGUIENDO;
+        }
     }
 }

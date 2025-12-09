@@ -4,10 +4,10 @@ public abstract class Enemigo : Entidad
 {
     //----------------------------------------------------------Atributos del UML----------------------------------------------------------
     public float rangoDeteccion = 2f;
-    protected bool jugadorDetectado;
+    protected bool jugadorDetectado; //no usado por transform
 
     //----------------------------------------------------------Atributos de UNITY----------------------------------------------------------
-    private Rigidbody2D rigidbody2D;
+    
     public float velocidad = 1f;
     
 
@@ -16,7 +16,7 @@ public abstract class Enemigo : Entidad
     //----------------------------------------------------------Metodos de Unity----------------------------------------------------------
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        
 
         
     }
@@ -25,12 +25,17 @@ public abstract class Enemigo : Entidad
     {
         if (xJugador > transform.position.x)
         {
-            rigidbody2D.AddForce(new Vector2(velocidad, 0f), ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(velocidad, 0f), ForceMode2D.Impulse);
         }
         else
         {
-            rigidbody2D.AddForce(new Vector2(-velocidad, 0f), ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(new Vector2(-velocidad, 0f), ForceMode2D.Impulse);
         }
     }
+    
+    public abstract void ComportamientoPerseguir();
+    public abstract void ComportamientoPreparar();
+    public abstract void ComportamientoRetirada();
+    public abstract void ComportamientoCooldown();
     
 }

@@ -389,8 +389,13 @@ public class Jugador : Entidad
         else
         {
             this.monedas-=monedas;
+            if (textoContadorMonedas != null)
+            {
+                textoContadorMonedas.text =  this.monedas.ToString();
+            }
             return 0;
         }
+        
     }
 
 
