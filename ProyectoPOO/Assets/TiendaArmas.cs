@@ -78,4 +78,8 @@ public class TiendaArmas : MonoBehaviour
     {
         return armasTienda.FindAll(a => !a.EstaVendida());
     }
+    public void prueba()
+    {
+        
+    }
 }
