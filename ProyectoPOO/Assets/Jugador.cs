@@ -7,7 +7,7 @@ public class Jugador : Entidad
 {
     //----------------------------------------------------------Atributos del UML----------------------------------------------------------
     private int stamina;
-    private int nivel = 0;
+    private int nivel = 1;
     private int experiencia = 0;
     private int puntosDeHabilidad = 0;
     private int monedas = 0;
@@ -37,6 +37,7 @@ public class Jugador : Entidad
     //Para el ataque
     public bool atacando = false;
     public Collider2D hitboxCollider;
+    public GameObject hitboxAtaque;
     private int buffPorSegundo =10;
     private float temporizadorAtaque = 0f;
     public float tiempoMaxCargado = 2f;
@@ -130,10 +131,12 @@ public class Jugador : Entidad
         if (atacando)
         {
             activarHitbox();
+            hitboxAtaque.SetActive(true);
         }
         if (!atacando)
         {
             desactivarHitbox();
+            hitboxAtaque.SetActive(false);
         }
         
         //Para animaciones
@@ -171,7 +174,7 @@ public class Jugador : Entidad
         }
     }
     //para activar y desactivar la hitbox de daño
-        public void activarHitbox()
+    public void activarHitbox()
     {
         if (hitboxCollider != null)
         {
