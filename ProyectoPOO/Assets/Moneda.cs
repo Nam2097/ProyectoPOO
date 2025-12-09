@@ -16,10 +16,10 @@ public class Moneda : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-    if (collision.gameObject.CompareTag("Player")) 
-    {
-            jugador.añadirMonedas(1);
-            Destroy(gameObject);
-    }
+        if (collision.gameObject.CompareTag("Player")) 
+        {
+                jugador.añadirMonedas(1);
+                Destroy(gameObject);
+        }
     }
 }

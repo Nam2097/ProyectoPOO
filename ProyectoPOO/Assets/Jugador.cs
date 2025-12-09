@@ -92,7 +92,10 @@ public class Jugador : Entidad
     }
     void Update()
     {   
-        
+        if (barraDeVidaScript != null)
+        {
+            barraDeVidaScript.CambiarVidaActual(vidaActual,vidaMaxima);
+        }
         //Verificaciones para movimiento
         velocidadActual=rigidbody2D.linearVelocity; //obtener vector de velocidad
         if (Keyboard.current.spaceKey.wasPressedThisFrame && !animacionActual.IsName("Atacar") && !cargandoAtaque) //espacio presionado o no pa saltar
@@ -120,7 +123,7 @@ public class Jugador : Entidad
             contadorSalto =1;
         }
         //Ataque
-        if(enSuelo && Keyboard.current.fKey.wasPressedThisFrame && puedeAtacar)
+        if(enSuelo&& Keyboard.current.fKey.wasPressedThisFrame && puedeAtacar)
         {
             if (!habilidades.Contains(Habilidad.CARGARATAQUE))
             {
@@ -135,7 +138,7 @@ public class Jugador : Entidad
             }
             
         }
-        if(enSuelo && Keyboard.current.fKey.isPressed && puedeAtacar)
+        if(enSuelo&& Keyboard.current.fKey.isPressed && puedeAtacar)
         {
             if (habilidades.Contains(Habilidad.CARGARATAQUE))
             {
@@ -143,7 +146,7 @@ public class Jugador : Entidad
             }
             
         }
-        if(enSuelo && Keyboard.current.fKey.wasReleasedThisFrame)
+        if(enSuelo&& Keyboard.current.fKey.wasReleasedThisFrame)
         {
             
             if (habilidades.Contains(Habilidad.CARGARATAQUE) && temporizadorAtaque!=0f)
@@ -185,6 +188,7 @@ public class Jugador : Entidad
         //Movimiento en sí
         enSuelo = Physics2D.OverlapCircle(controladorSuelo.position, radioSuelo, queEsSuelo); //Revisión si está en el suelo
         mover();
+
     }
 
     private void OnDrawGizmos()
