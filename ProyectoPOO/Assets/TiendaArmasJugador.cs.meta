@@ -1,2 +1,12 @@
 fileFormatVersion: 2
 guid: 564704a681cbaa040b3334f40f67ea2b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tiendaDeArmas: {fileID: 6706071897804104918, guid: d5762bc5a27638e4f878ed6290496cc2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,8 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TiendaArmas : MonoBehaviour
 {
+    public TMP_Text[] textosNombres; 
+    public TMP_Text[] textosCostos;
+    [SerializeField] private List<Arma> armasTienda = new List<Arma>();
+
+    // Referencia al jugador real
+    private Jugador jugador;
+
+
     private static TiendaArmas instance;
     public static TiendaArmas Instance
     {
@@ -21,10 +30,7 @@ public class TiendaArmas : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<Arma> armasTienda = new List<Arma>();
-
-    // Referencia al jugador real
-    private Jugador jugador;
+    
 
     private void Awake()
     {
@@ -41,25 +47,28 @@ public class TiendaArmas : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+
     }
 
     // ----------------- INICIALIZACIÓN DE ARMAS --------------------
     private void Start()
     {
-    // Crear armas predeterminadas
-    armasTienda = new List<Arma>()
-    {
-        new Arma("primera", 5, 1.5f, "Ninguno", 5),    // Arma ligera, barata
-        new Arma("cargar", 20, 1.2f, "Carga", 12),        // Arma carga de ataque
-        new Arma("hielo", 35, 0.9f, "Hielo", 25),      // Arma de hielo
-        new Arma("veneno", 50, 0.7f, "Veneno", 40)   // Arma de veneno
-    };
+        // Crear armas predeterminadas
+        armasTienda = new List<Arma>()
+        {
+            new Arma("Starter", 15, 1.5f, "Ninguno", 5),    // Arma ligera, barata
+            new Arma("Carga", 20, 1.2f, "Carga", 12),        // Arma carga de ataque
+            new Arma("Helada", 35, 0.9f, "Hielo", 25),      // Arma de hielo
+            new Arma("Venom", 35, 0.7f, "Veneno", 40)   // Arma de veneno
+        };
 
-    Debug.Log("Armas creadas automáticamente en la tienda:");
-    foreach (var arma in armasTienda)
-    {
-        Debug.Log($"Arma: {arma.GetNombre()} - Daño: {arma.GetDaño()} - Velocidad: {arma.GetVelocidad()} - Costo: {arma.GetCosto()} - Efecto: {arma.GetNombre()}");
-    }
+        Debug.Log("Armas creadas automáticamente en la tienda:");
+        foreach (var arma in armasTienda)
+        {
+            Debug.Log($"Arma: {arma.GetNombre()} - Daño: {arma.GetDaño()} - Velocidad: {arma.GetVelocidad()} - Costo: {arma.GetCosto()} - Efecto: {arma.GetNombre()}");
+        }
+        ActualizarInterfaz();
     }
 
     // ----------------- LÓGICA DE COMPRA --------------------
@@ -91,6 +100,8 @@ public class TiendaArmas : MonoBehaviour
 
         Debug.Log($"Compra exitosa: {nombreArma} por {costo} monedas.");
 
+        jugador.añadirArmaInventario(armaAComprar);
+
         return true;
     }
 
@@ -120,5 +131,22 @@ public class TiendaArmas : MonoBehaviour
     public List<Arma> GetArmasDisponibles()
     {
         return armasTienda.FindAll(a => !a.EstaVendida());
+    }
+    public void ActualizarInterfaz()
+    {
+        // Recorremos la lista de armas que creamos
+        for (int i = 0; i < armasTienda.Count; i++)
+        {
+            // Verificamos que no nos salgamos del límite de botones que tienes en Unity
+            if (i < textosNombres.Length && i < textosCostos.Length)
+            {
+                // Obtenemos el arma actual
+                Arma armaActual = armasTienda[i];
+
+                // Escribimos en la UI
+                textosNombres[i].text = armaActual.GetNombre();
+                textosCostos[i].text = "$" + armaActual.GetCosto(); // Le agregamos el signo de peso
+            }
+        }
     }
 }

@@ -85,7 +85,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 8953634022533174877, guid: bac5f0aa65c0e8c4185c2a05e15d3797, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -169,7 +169,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &8525871383485165916
 Animator:
   serializedVersion: 7
@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 564704a681cbaa040b3334f40f67ea2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TiendaArmasJugador
-  tiendaDeArmas: {fileID: 0}
+  tiendaDeArmas: {fileID: 6706071897804104918, guid: d5762bc5a27638e4f878ed6290496cc2, type: 3}
 --- !u!114 &2910807309620733288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Jugador
   velocidadHorizontal: 0.2
-  fuerzaSalto: 5
+  fuerzaSalto: 6.7
   velocidadMaxima: 2
   controladorSuelo: {fileID: 6580831376400839831}
   radioSuelo: 0.2
@@ -398,7 +398,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

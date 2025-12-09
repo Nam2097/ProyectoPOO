@@ -1,35 +1,42 @@
 using UnityEngine;
 using UnityEngine.InputSystem; 
-using System.Collections.Generic;
+// using System.Collections.Generic; // No la necesitas aquí si no usas Listas
 
 public class TiendaArmasJugador : MonoBehaviour
 {
-    public GameObject tiendaDeArmas;
-    private GameObject referenciaTienda;
-    private bool estaActiva =false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Arrastra aquí el objeto VentanaTienda del Canvas")]
+    public GameObject tiendaDeArmas; // Ahora esto será el objeto de la escena, no el prefab
+
     void Start()
     {
-        
+        // Opcional: Nos aseguramos de que la tienda empiece cerrada al iniciar el juego
+        if (tiendaDeArmas != null)
+        {
+            tiendaDeArmas.SetActive(false);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Al presionar P
         if (Keyboard.current.pKey.wasPressedThisFrame)
         {
-            if (estaActiva == false)
+            if (tiendaDeArmas != null)
             {
-                referenciaTienda = Instantiate(tiendaDeArmas, new Vector2(0f, 0f), Quaternion.identity);
-                referenciaTienda.SetActive(true);
-                estaActiva=true;
-            } else if(estaActiva == true)
-            {
-                Destroy(referenciaTienda);
-                estaActiva=false;
+                // 1. Revisamos si está activa actualmente
+                bool estaActiva = tiendaDeArmas.activeSelf;
+
+                // 2. Le damos la vuelta (Si es true -> false, Si es false -> true)
+                tiendaDeArmas.SetActive(!estaActiva);
+                
+                // Debug opcional para ver que funciona
+                if (!estaActiva) Debug.Log("Tienda Abierta");
+                else Debug.Log("Tienda Cerrada");
             }
-            
-        
+            else
+            {
+                Debug.LogWarning("¡Falta asignar la Tienda en el Inspector!");
+            }
         }
     }
 }

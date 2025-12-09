@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem; 
 using System.Collections.Generic;
+using System;
 
 public class Jugador : Entidad
 {
@@ -63,7 +64,7 @@ public class Jugador : Entidad
     {
         vidaMaxima=100;
         vidaActual=100;
-        daño=20;
+        daño=10;
     }
     void Update()
     {   
@@ -259,17 +260,37 @@ public class Jugador : Entidad
     }
     public void añadirArmaInventario(Arma arma)
     {
-        armasInventario.Add(arma);
+        Arma copiaArmita = arma;
+        armasInventario.Add(copiaArmita);
+        Debug.Log("Se añadio el arma "+arma.GetNombre());
+        Debug.Log("Inventario actual (" + armasInventario.Count + " items):");
+        foreach(var a in armasInventario)
+        {
+            Debug.Log("- " + a.GetNombre());
+        }
     }
     public void cambiarArmaActiva(string arma)
     {
-        Arma armaBuscada =armasInventario.Find(armita => armita.GetNombre() == arma);
+        string nombreLimpio = arma.Trim();
+        Arma armaBuscada = armasInventario.Find(a => string.Equals(a.GetNombre().Trim(), nombreLimpio, StringComparison.OrdinalIgnoreCase));
         if (armaBuscada != null)
         {
             armaActiva = armaBuscada;
             Debug.Log("Arma activa ahora es "+armaActiva.GetNombre());
+            daño =armaActiva.GetDaño();
+            Debug.Log("El daño ahora es de "+daño);
         }
-        Debug.Log("El jugador no tiene el arma");
+        else
+        {
+            Debug.Log("El jugador no tiene el arma "+nombreLimpio);
+            Debug.Log("Inventario actual (" + armasInventario.Count + " items):");
+            foreach(var a in armasInventario)
+            {
+                Debug.Log("- " + a.GetNombre());
+            }
+        }
+        
+        
         
     }
     public void aumentarExperiencia(int experiencia)
@@ -278,10 +299,12 @@ public class Jugador : Entidad
         {
             nivel++;
             this.experiencia = this.experiencia + experiencia -100;
+            Debug.Log("Se aumento el nivel a "+nivel);
         }
         else
         {
            this.experiencia+= experiencia; 
+           Debug.Log("Se aumento la experiencia por "+experiencia);
         }
         
     }
