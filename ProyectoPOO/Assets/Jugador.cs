@@ -53,6 +53,9 @@ public class Jugador : Entidad
     public BarraExperiencia barraDeExperienciaScript;
     public TMP_Text textoContadorMonedas;
     public TMP_Text textoNivel;
+
+    public bool murio=false;
+    public bool inicioMuerte=false;
     
 
     //-----------------------------------------------------------------Metodos de Unity----------------------------------------------------------
@@ -91,7 +94,18 @@ public class Jugador : Entidad
         daño=10;
     }
     void Update()
-    {   
+    {
+        if (murio)
+        {
+            morir();
+        }
+        if (vidaActual<=0&&!inicioMuerte)
+        {
+            animacion.SetTrigger("morir");
+            rigidbody2D.linearVelocity = new Vector2(0f, 0f);
+            inicioMuerte=true;
+        }
+        
         if (barraDeVidaScript != null)
         {
             barraDeVidaScript.CambiarVidaActual(vidaActual,vidaMaxima);
@@ -282,7 +296,9 @@ public class Jugador : Entidad
     }
     public override void morir()
     {
-        
+        Debug.Log("El jugador murio unu");
+
+        Destroy(gameObject);
     }
     public void recibirDaño(int daño)
     {

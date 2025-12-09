@@ -14,6 +14,8 @@ public class Fly : Enemigo
     public float cooldownAtaque = 2.0f;
     private bool estaOcupado = false; 
     private bool puedeAtacar = true;
+    public GameObject hitboxAtaque;
+    public bool atacando = false;
     //comportamiento
     private Estado estadoActual = Estado.PERSIGUIENDO;
     private float temporizador = 0f;
@@ -22,17 +24,24 @@ public class Fly : Enemigo
     private Animator animacion;
     //muerte
     public bool murio = false;
-    public GameObject hitboxAtaque;
-    public bool atacando = false;
+    public bool inicioMuerte=false;
+
+    public int dañoPrueba=0;
+
+    
 
     //----------------------------------------------------------Metodos de Unity----------------------------------------------------------
     void Start()
     {
+        if (dañoPrueba == 0)
+        {
+            dañoPrueba= getDaño();
+        }
         animacion = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         setVidaMaxima(50); 
         setVidaActual(50);
-        setDaño(10);  
+        setDaño(dañoPrueba);  
         velocidad = 1f;
         hitboxAtaque.SetActive(false);
     }
@@ -40,9 +49,10 @@ public class Fly : Enemigo
     // Update is called once per frame
     void Update()
     {
-        if (vidaActual <= 0)
+        if (vidaActual <= 0 && !inicioMuerte)
         {
             animacion.SetTrigger("morir");
+            inicioMuerte=true;
         }
         if (murio)
         {
