@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Jugador : Entidad
 {
@@ -241,6 +242,7 @@ public class Jugador : Entidad
         }
     }
     
+    
     //-------------------------------------------------------------------Metodos del UML---------------------------------------------------------------------
     public void mover()
     {
@@ -297,7 +299,7 @@ public class Jugador : Entidad
     public override void morir()
     {
         Debug.Log("El jugador murio unu");
-
+        SceneManager.LoadSceneAsync(2);
         Destroy(gameObject);
     }
     public void recibirDaño(int daño)
@@ -397,8 +399,5 @@ public class Jugador : Entidad
         }
         
     }
-
-
-
 }
 

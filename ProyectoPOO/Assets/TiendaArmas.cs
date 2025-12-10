@@ -137,7 +137,6 @@ public class TiendaArmas : MonoBehaviour
         // Recorremos la lista de armas que creamos
         for (int i = 0; i < armasTienda.Count; i++)
         {
-            // Verificamos que no nos salgamos del límite de botones que tienes en Unity
             if (i < textosNombres.Length && i < textosCostos.Length)
             {
                 // Obtenemos el arma actual
@@ -145,7 +144,7 @@ public class TiendaArmas : MonoBehaviour
 
                 // Escribimos en la UI
                 textosNombres[i].text = armaActual.GetNombre();
-                textosCostos[i].text = "$" + armaActual.GetCosto(); // Le agregamos el signo de peso
+                textosCostos[i].text = "$" + armaActual.GetCosto(); 
             }
         }
     }
